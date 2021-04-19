@@ -38,7 +38,7 @@ msgid "Change Production Qty"
 msgstr ""
 
 #. module: odoo_mo_maximum
-#: model_terms:ir.ui.view,arch_db:odoo_mo_maximum.os_alveus_maximum_template_form
+#: model_terms:ir.ui.view,arch_db:odoo_mo_maximum.odoo_mo_maximum_template_form
 msgid "Manufacturing"
 msgstr ""
 

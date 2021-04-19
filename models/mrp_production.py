@@ -79,7 +79,6 @@ class MrpProduction(models.Model):
             # If there are more units than the limit then the rest are created in a new MO
             if next_values:
                 self.env['mrp.production'].create(next_values)
-                self.env.user.notify_warning(message='A Manufacture Order has been created with the rest of the quantity EXCEEDED ({})'.format(next_values['product_qty']), title="WARNING", sticky=True)
         return super(MrpProduction, self.with_context(group_mo_by_product=False)).create(vals)
 
     @api.multi

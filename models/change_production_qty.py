@@ -30,7 +30,6 @@ class ChangeProductionQty(models.TransientModel):
                     # Here is where the rest of the quantity gets converted into a new MO
                     updated_qty = qty - reference
                     mo_id.copy(default={'product_qty': updated_qty})
-                    self.env.user.notify_warning(message='A Manufacture Order has been created with the rest of the quantity EXCEEDED ({})'.format(updated_qty if updated_qty < reference else reference), title="WARNING", sticky=True)
         return super(ChangeProductionQty, self).create(vals)
 
     @api.onchange('product_qty')
