@@ -7,7 +7,7 @@ class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
     allow_exceed_max = fields.Boolean('Allow Exceed Max', default=False)
-    max_allowed_reached = fields.Boolean('Mex Reached', default=False)
+    max_allowed_reached = fields.Boolean('Max Reached', default=False)
 
     @api.onchange('product_qty', 'product_id')
     def onchange_check_max_raise(self):

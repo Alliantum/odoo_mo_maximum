@@ -56,7 +56,7 @@ msgstr ""
 
 #. module: odoo_mo_maximum
 #: model:ir.model.fields,field_description:odoo_mo_maximum.field_mrp_production__max_allowed_reached
-msgid "Mex Reached"
+msgid "Max Reached"
 msgstr ""
 
 #. module: odoo_mo_maximum
