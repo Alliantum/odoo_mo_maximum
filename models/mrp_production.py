@@ -23,7 +23,6 @@ class MrpProduction(models.Model):
                         }}
         self.max_allowed_reached = False
 
-    @api.multi
     def split_amount_create_mo(self, vals, product_id):
         next_vals = vals.copy()
         mo_uom_id = self.env['uom.uom'].browse(vals.get('product_uom_id'))
@@ -81,7 +80,6 @@ class MrpProduction(models.Model):
                 self.env['mrp.production'].create(next_values)
         return super(MrpProduction, self.with_context(group_mo_by_product=False)).create(vals)
 
-    @api.multi
     def write(self, vals):
         product_id = self.env['product.product'].search([('id', '=', vals.get('product_id'))]) if 'product_id' in vals else None
         for mo_id in self:
