@@ -4,7 +4,7 @@ from odoo import api, fields, models, _
 
 class ChangeProductionQty(models.TransientModel):
     _inherit = 'change.production.qty'
-    
+
     # Here is created the message that appears when ONCE you have a MO
     # and you want to update the quantity to produce
     warning_message = fields.Html(compute="_get_warning_message")
@@ -16,6 +16,8 @@ class ChangeProductionQty(models.TransientModel):
                 wiz.warning_message = _("<p>This product has a limit on the quantities you can produce for a single MO."
                                         " Maximum is {}, so be aware, that if you overpass this limit a new MO will be created"
                                         " with the exceeded amounts.</p>").format(wiz.mo_id.product_id.max_production)
+            else:
+                wiz.warning_message = ''
 
     @api.model
     def create(self, vals):
