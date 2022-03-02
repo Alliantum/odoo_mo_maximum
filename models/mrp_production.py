@@ -17,7 +17,7 @@ class MrpProduction(models.Model):
                 return {'warning': {
                     'title': 'Confirm Max Exceeded',
                     'message': "Producing {} {} exceeds the limit of {} per a single Manufacturing Order, which is {} {}.\n\n"
-                               "If you steel want to allow exceed that maximum amount for this MO, please check the field 'Allow Exceed Max'."
+                               "If you still want to allow exceeding that maximum amount for this MO, please check the field 'Allow Exceed Max'."
                                " Otherwise a new MO will be created with the exceeded amounts.".format(
                 self.product_qty, self.product_uom_id.name, self.product_id.name, self.product_id.max_production, self.product_id.uom_id.name),
                         }}

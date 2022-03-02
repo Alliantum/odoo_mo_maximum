@@ -4,7 +4,7 @@ from odoo import api, fields, models, _
 
 class ChangeProductionQty(models.TransientModel):
     _inherit = 'change.production.qty'
-    
+
     # Here is created the message that appears when ONCE you have a MO
     # and you want to update the quantity to produce
     warning_message = fields.Html(compute="_get_warning_message")
@@ -40,7 +40,7 @@ class ChangeProductionQty(models.TransientModel):
                     return {'warning': {
                         'title': 'Confirm Max Exceeded',
                         'message': "Producing {} {} exceeds the limit of {} per a single Manufacturing Order, which is {} {}.\n\n"
-                                "If you steel want to allow exceed that maximum amount for this MO, please check the field 'Allow Exceed Max'."
+                                "If you still want to allow exceeding that maximum amount for this MO, please check the field 'Allow Exceed Max'."
                                 " Otherwise a new MO will be created with the exceeded amounts.".format(
                     wiz.product_qty, wiz.mo_id.product_uom_id.name, wiz.mo_id.product_id.name, wiz.mo_id.product_id.max_production, wiz.mo_id.product_id.uom_id.name),
                             }}
