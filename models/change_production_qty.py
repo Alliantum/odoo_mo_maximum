@@ -17,7 +17,7 @@ class ChangeProductionQty(models.TransientModel):
                                         " Maximum is {}, so be aware, that if you overpass this limit a new MO will be created"
                                         " with the exceeded amounts.</p>").format(wiz.mo_id.product_id.max_production)
             else:
-                wiz.warning_message = ''
+                wiz.warning_message = False
 
     @api.model
     def create(self, vals):
