@@ -85,19 +85,19 @@ class MrpProduction(models.Model):
         for mo_id in self:
             if not mo_id.allow_exceed_max:
                 if not product_id: product_id = mo_id.product_id
-                allow_exceed = self.allow_exceed_max
+                allow_exceed = mo_id.allow_exceed_max
                 if 'allow_exceed_max' in vals:
                     allow_exceed = True if vals.get('allow_exceed_max') == False else False
                 if product_id.max_production and product_id.max_production > 0 and not allow_exceed:
                     if 'product_qty' in vals and 'product_uom_id' in vals:
                         new_uom_id = self.env['uom.uom'].browse(vals.get('product_uom_id'))
                         qty = new_uom_id._compute_quantity(vals.get('product_qty'), product_id.uom_id)
-                        self.check_max_raise(qty, new_uom_id.name, product_id)
+                        mo_id.check_max_raise(qty, new_uom_id.name, product_id)
                     elif 'product_qty' in vals:
-                        qty = self.product_uom_id._compute_quantity(vals.get('product_qty'), product_id.uom_id)
-                        self.check_max_raise(qty, self.product_uom_id.name, product_id)
+                        qty = mo_id.product_uom_id._compute_quantity(vals.get('product_qty'), product_id.uom_id)
+                        mo_id.check_max_raise(qty, mo_id.product_uom_id.name, product_id)
                     elif 'product_uom_id' in vals:
                         new_uom_id = self.env['uom.uom'].browse(vals.get('product_uom_id'))
-                        qty = new_uom_id._compute_quantity(self.product_qty, product_id.uom_id)
-                        self.check_max_raise(qty, new_uom_id.name, product_id)
+                        qty = new_uom_id._compute_quantity(mo_id.product_qty, product_id.uom_id)
+                        mo_id.check_max_raise(qty, new_uom_id.name, product_id)
         return super(MrpProduction, self).write(vals)
