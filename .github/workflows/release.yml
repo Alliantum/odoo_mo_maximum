@@ -1,7 +1,14 @@
 name: Release
 
+permissions:
+  contents: write
+
 on:
   push:
+    branches:
+      - "12.0"
+      - "13.0"
+      - "14.0"
 
 jobs:
   release:
@@ -32,3 +39,4 @@ jobs:
           tag_name: ${{ steps.compare-odoo-version.outputs.new-version }}
           draft: false
           prerelease: false
+          target_commitish: ${{ github.sha }}
