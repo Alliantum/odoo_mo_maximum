@@ -10,8 +10,13 @@
     'author': "Alliantum",
     'website': "https://www.alliantum.com",
     'category': 'Manufacturing',
-    'version': '14.0.1.0.1',
-    'depends': ['mrp', 'stock', 'product', 'mrp_production_grouped_by_product'],
+    'version': '14.0.2.0.1',
+    'depends': [
+        'mrp',
+        'stock',
+        'product',
+        'mrp_production_grouped_by_product'
+    ],
     'data': [
         'views/product_views.xml',
         'views/mrp_production_view.xml',
