@@ -10,7 +10,7 @@
     'author': "Alliantum",
     'website': "https://www.alliantum.com",
     'category': 'Manufacturing',
-    'version': '14.0.2.0.1',
+    'version': '14.0.3.0.1',
     'depends': [
         'mrp',
         'stock',
