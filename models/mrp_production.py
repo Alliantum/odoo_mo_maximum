@@ -74,6 +74,7 @@ class MrpProduction(models.Model):
             'is_splitted_on_max': True,
             'backorder_sequence': 1
         })
+        # self._create_update_move_finished()
 
         for sequence, product_qty in enumerate(self._split_product_qty_max(exceeded_product_uom_qty), 2):
             backorder = self.with_context(group_mo_by_product=False).copy({
@@ -83,10 +84,15 @@ class MrpProduction(models.Model):
                 'move_raw_ids': False,
                 'move_finished_ids': False,
                 'finished_move_line_ids': False,
-                'backorder_sequence': sequence
-                # move_dest_ids
+                'backorder_sequence': sequence,
+                # 'move_dest_ids': [(4, move.id, 0) for move in self.move_dest_ids]
             })
+            # backorder.move_dest_ids = self.move_dest_ids
             backorder._onchange_move_raw()
+            backorder._create_update_move_finished()
+            if self.move_dest_ids:
+                # in case of chained mos, for example in MTO
+                backorder.move_finished_ids.move_dest_ids = self.move_dest_ids
 
     def _split_product_qty_max(self, exceeded_product_uom_qty):
         product = self.product_id
@@ -99,3 +105,13 @@ class MrpProduction(models.Model):
         if not self.allow_exceed_max and self.product_id.max_production > 0 and self.product_uom_qty > self.product_id.max_production:
             return True
         return False
+
+    def _find_grouping_target(self, vals):
+        """Add compatibility with OCA module mrp_production_grouped_by_product"""
+        mos = self.env["mrp.production"].search(self._get_grouping_target_domain(vals))
+        for mo in mos:
+            if mo.product_tmpl_id.max_production <= 0 or mo.product_uom_qty < mo.product_tmpl_id.max_production:
+                # maximum per manufacturing order doesn't apply or is less than the maximum allowed
+                return mo
+        # otherwise return empty recordset
+        return self.env['mrp.production']
