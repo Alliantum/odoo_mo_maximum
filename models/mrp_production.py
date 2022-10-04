@@ -105,3 +105,13 @@ class MrpProduction(models.Model):
         if not self.allow_exceed_max and self.product_id.max_production > 0 and self.product_uom_qty > self.product_id.max_production:
             return True
         return False
+
+    def _find_grouping_target(self, vals):
+        """Add compatibility with OCA module mrp_production_grouped_by_product"""
+        mos = self.env["mrp.production"].search(self._get_grouping_target_domain(vals))
+        for mo in mos:
+            if mo.product_tmpl_id.max_production <= 0 or mo.product_uom_qty < mo.product_tmpl_id.max_production:
+                # maximum per manufacturing order doesn't apply or is less than the maximum allowed
+                return mo
+        # otherwise return empty recordset
+        return self.env['mrp.production']

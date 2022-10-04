@@ -10,11 +10,12 @@
     'author': "Alliantum",
     'website': "https://www.alliantum.com",
     'category': 'Manufacturing',
-    'version': '14.0.5.0.1',
+    'version': '14.0.4.0.1',
     'depends': [
         'mrp',
         'stock',
-        'product'
+        'product',
+        'mrp_production_grouped_by_product' # this could be optionally removed when module not installed/used
     ],
     'data': [
         'views/product_views.xml',
